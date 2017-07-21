@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script type="text/javascript">
+        (function(){if(window.$ == undefined){console.error("Jquery加载失败");}})();
+        /*****************************************************************************/
+        $(function(){
+            $(".box").find("span").click(function () {
+                if($(this).parent("li").hasClass("on")){
+                    $(this).parent("li").removeClass("on").siblings("li").removeClass("on");
+                    $(this).parent("li").children("dl").slideUp(200,function(){
+                        $(".box").find("dt").css({"margin-left":"-100%"})
+                    });
+                }else{
+                    if(typeof t != "undefined"){
+                        window.clearInterval(t);
+                    }
+                    $(this).parent("li").addClass("on").siblings("li").removeClass("on");
+                    $(".box").find("dt").css({"margin-left":"-100%"})
+                    $(this).parent("li").children("dl").stop().slideDown(200,function(){
+                        var that =$(this);
+                        var i = 0;
+                        t = setInterval(function(){
+                            if(i < that.children("dt").length){
+                                that.children("dt").eq(i).stop().animate({"margin-left":"0px"},300)
+                                i++;
+                            }else{
+                                window.clearInterval(t);
+                            }
+                        },100)
+                    })
+                    $(this).parent("li").siblings("li").children("dl").slideUp(200,function(){
+                        $(".box").find("dt").css({"margin-left":"-100%"})
+                    });
+                }
+            });
+        })
+    </script>
+    <style type="text/css">
+        *{padding:0; margin: 0; list-style: none}
+        body{background: #2D2C41;}
+        .box{width: 350px; height:auto; margin: 20px auto;border-radius: 5px; overflow: hidden}
+        .box li{width: 100%; height: auto; border-bottom: 1px solid #CCCCCC; position: relative; overflow: hidden;}
+        .box li:last-child{ border-bottom: none;}
+        .box li span{width: 100%; cursor: pointer; background: #FFFFFF;text-indent: 10px; line-height: 40px; height: 40px; display: block;}
+        .box li .tb{width: 16px; height: 10px; transition:transform 0.5s;  position: absolute; top: 15px; right: 15px; background: url("tb.png") center center no-repeat;}
+        .box li.on .tb{transform:rotate(180deg);}
+        .box li dl{ display: none;}
+        .box li dl dt{width: 100%; cursor: pointer; transition: background 0.3s; margin-left: -100%; height: 40px; line-height: 40px; background: #444359; color: #FFFFFF; text-indent: 20px; border-bottom: 1px solid #4B4A5E;}
+        .box li dl dt:hover{background: #B63B4D;}
+    </style>
+
+</head>
+<body>
+    <div class="box">
+        <ul>
+            <li>
+                <span>新闻中心</span>
+                <div class="tb"></div>
+                <dl>
+                    <dt>1</dt>
+                    <dt>2</dt>
+                    <dt>3</dt>
+                    <dt>4</dt>
+                </dl>
+            </li>
+            <li>
+                <span>通知公告</span>
+                <div class="tb"></div>
+                <dl>
+                    <dt>5</dt>
+                    <dt>6</dt>
+                    <dt>7</dt>
+                    <dt>8</dt>
+                </dl>
+            </li>
+            <li>
+                <span>政策法规</span>
+                <div class="tb"></div>
+                <dl>
+                    <dt>1</dt>
+                    <dt>2</dt>
+                    <dt>3</dt>
+                    <dt>4</dt>
+                </dl>
+            </li>
+            <li>
+                <span>党派原地</span>
+                <div class="tb"></div>
+                <dl>
+                    <dt>1</dt>
+                    <dt>2</dt>
+                    <dt>3</dt>
+                    <dt>4</dt>
+                </dl>
+            </li>
+            <li>
+                <span>精准扶贫</span>
+                <div class="tb"></div>
+                <dl>
+                    <dt>6</dt>
+                    <dt>7</dt>
+                    <dt>8</dt>
+                    <dt>9</dt>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
